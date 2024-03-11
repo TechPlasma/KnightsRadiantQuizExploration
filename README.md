@@ -4,7 +4,7 @@ As requested here is all the code and files I used to build this exploration app
 I'll mark out some specific files as I kinda just ripped most of it directly from the
 website.
 
-- `KRO.js` is the original un-edited Script for the Knights Radiant Quiz
+- `KRQ.js` is the original un-edited Script for the Knights Radiant Quiz
 - `Radiant.js` is where I copied over the relevant data with a couple of modifications
 (
   Brandon's Team if you read this your URL for the Dustbringers is incorrect the correct URL is:
