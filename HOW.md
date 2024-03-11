@@ -76,10 +76,9 @@ The above process is repeated for each order, for each question, summing their `
 together.
 
 At this point there is a singular Order who's values are manipulated. The Bondsmiths get a multiplier
-of 1.3 to their score. Perhaps the base percentage chance of being a bondsmith is inherently higher?
-Or perhaps the nature of Bondsmithery is such that most other Orders will overshadow them otherwise.
-Or maybe they got the "Optimal" answers wrong and boosting the Bondsmith score fixed the issue...
-We would need to talk to the creator of this Quiz to know for sure why this is as it is.
+of 1.3 to their score. This modification lower's the chance that any one person will score highly as
+a bondsmith. Perhaps weeding out a lot of potential bondsmiths so only the most aligned with the 
+Order will appear.
 
 The next step is to find the order with the lowest number. Since the goal is to find the order that
 you most closely align with, you will want your deviation from your answers to their answers to be
