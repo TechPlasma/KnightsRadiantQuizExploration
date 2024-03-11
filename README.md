@@ -14,6 +14,9 @@ website.
 - `TrueRadiant.html` is the webpage I quickly scrapped together to visualize the proper values. You should
 just be able to open this file in the web browser and have everything just work. Since I used VueJS, and 
 Bootstrap via CDN.
+If you just open it with a web browser some of the images may fail to load. In that case you can
+open the folder in VSCode an use the `Live Server` extension to serve the website locally, this is
+what I did during development.
 
 - `HOW.md` and `HOW.pdf` are my breakdowns of how the quiz works, It's not perfect but it give a pretty 
 good rundown.
