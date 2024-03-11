@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anatomy of a Radiant</title>
+
+  <!-- Too Lazy to do fancy custom css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="Radiant.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="m-2 d-flex align-items-center">
+      <h1>
+        Anatomy of the Optimal
+      </h1>
+      <ul class="ms-3 nav nav-underline">
+        <li class="nav-item" v-for="(order, idx) in Orders">
+          <button class="nav-link d-flex flex-column" 
+          :class="{'active': orderSelect == idx}"
+          style="color: inherit"
+          @click="updateReference(idx)" 
+          >
+            <img style="max-height: 50px;" :src="`/assets/Orders_Glyphs/${order}s_glyph.svg`" >
+            {{order}}
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="row mx-0">
+      <div class="col-6 p-2">
+        <div class="card" :style="{'background': selectedOrder.color}">
+          <img class="card-img-top" :src="selectedOrder.imageUrl" alt="">
+          <div class="card-body" :style="{'color': selectedOrder.textColor}">
+            <h5 class="card-title">{{orderName}}</h5>
+            <span><b>Herald:</b> {{selectedOrder.herald}}</span><br>
+            <span><b>Archetype:</b> {{selectedOrder.archetype}}</span><br>
+            <span><b>Gemstone:</b> {{selectedOrder.gemstone}}</span><br>
+            <div><b>Oath Theme:</b> 
+              <p class="ms-3 mb-0">
+                {{selectedOrder.oathTheme}}
+              </p>
+            </div>
+            <div><b>Role:</b> 
+              <p class="ms-3 mb-0">
+                {{selectedOrder.role}}
+              </p>
+            </div>
+            <div><b>Powers:</b> 
+              <details class="ms-3 mb-0">
+                <summary>
+                  <img :style="{'max-height': '25px'}" :src="`/assets/Surges_Glyphs/${selectedOrder.power1}_Surge-glyph.svg`" >
+                  {{selectedOrder.power1}}
+                </summary>
+                {{selectedOrder.power1Desc}}
+              </details>
+              <details class="ms-3 mb-0">
+                <summary>
+                  <img :style="{'max-height': '25px'}" :src="`/assets/Surges_Glyphs/${selectedOrder.power2}_Surge-glyph.svg`" >
+                  {{selectedOrder.power2}}
+                </summary>
+                {{selectedOrder.power2Desc}}
+              </details>
+            </div>
+    
+          </div>
+          <div class="card-footer text-end">
+            <a class="btn btn-info" :href="selectedOrder.blogLink">{{selectedOrder.blogName}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 p-2">
+        <div class="card">
+          <div class="card-body" v-if="renderPrompts">
+            <h5 class="card-title">Optimal Quiz Answers</h5>
+            <div v-for="(prompt, promptIdx) in quizPrompts">
+              <label class="d-flex justify-space-between">
+                <span>{{prompt.promptLeftText}} {{100 - traitData[prompt.traitRight][orderSelect]}}%</span>
+                <span class="flex-fill"></span>
+                <span>{{traitData[prompt.traitRight][orderSelect]}}% {{prompt.promptRightText}}</span>
+              </label>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar"
+                  :id="`${promptIdx}${orderSelect}`"
+                  :style="{
+                    'background': '#e9ecef', 
+                    'color': selectedOrder.textColor, 
+                    'width': `${traitData[prompt.traitRight][orderSelect]-1}%`
+                  }" 
+                ></div>
+                <div class="progress-bar"
+                  :style="{
+                    'background': selectedOrder.color, 
+                    'color': selectedOrder.textColor, 
+                    'width': '0%', 
+                    'border-radius': '100%',
+                    'height': '16px',
+                    'width': '16px',
+                    'font-size': '.8em'
+                  }" 
+                >
+                  {{traitData[prompt.traitRight][orderSelect]}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+const { createApp, ref, computed } = Vue;
+
+
+createApp({
+  setup() {
+    let orderSelect = ref(0);
+    let renderPrompts = ref(true);
+    let orderName = computed(() => Orders[orderSelect.value]);
+    let selectedOrder = computed(() => OrderData[orderSelect.value]);
+    function updateReference(value) {
+      renderPrompts.value = false;
+      orderSelect.value = value;
+      console.log(orderSelect.value, renderPrompts.value)
+      setTimeout(() => {
+        
+        renderPrompts.value = true;
+      }, 50);
+    }
+    return {
+      Orders,
+      quizPrompts,
+      traitData,
+
+      orderSelect,
+      renderPrompts,
+      selectedOrder,
+      orderName,
+      updateReference
+    }
+  }
+}).mount('#app')
+</script>
+</html>
+
+<style>
+</style>
